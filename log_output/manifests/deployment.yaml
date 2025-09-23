@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-outputter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-outputter
+  template:
+    metadata:
+      labels:
+        app: log-outputter
+    spec:
+      containers:
+        - name: log-outputter
+          image: log_output
+          imagePullPolicy: IfNotPresent

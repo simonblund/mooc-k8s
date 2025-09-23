@@ -1,0 +1,15 @@
+{
+  "name": "log_output",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev":"node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Simon Blomsterlund",
+  "license": "MIT",
+  "description": ""
+}
