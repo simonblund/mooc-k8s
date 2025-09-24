@@ -4,8 +4,10 @@ WORKDIR /app
 
 RUN npm ci
 RUN npm run build
+RUN cp -r src/static dist/static
 
 FROM gcr.io/distroless/nodejs24-debian12
 COPY --from=build-env /app /app
 WORKDIR /app
+
 CMD ["dist/index.js"]

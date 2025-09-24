@@ -1,5 +1,5 @@
 build:
-	docker build -t webserver .
+	docker build -t webserver:$(shell date +%H%M%S) .
 
 add_to_k3s:
-	k3d image import webserver:latest 
+	k3d image import webserver:235211
