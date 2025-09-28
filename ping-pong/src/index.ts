@@ -1,13 +1,24 @@
 import { serve } from "@hono/node-server";
 import { fork } from "child_process";
+import { existsSync, readFileSync, write, writeFileSync } from "fs";
 import { Hono } from "hono";
 
 let poncCount = 0;
 
 const app = new Hono();
 
+function pingpong() {
+  if (!existsSync("./data/pingpong.txt")) {
+    writeFileSync("./data/pingpong.txt", "0", "utf-8");
+  }
+  const existing = readFileSync("./data/pingpong.txt", "utf-8");
+  const newValue = Number(existing) + 1;
+  writeFileSync("./data/pingpong.txt", String(newValue), "utf-8");
+  return existing;
+}
+
 app.get("/pingpong", (c) => {
-  return c.text("pong " + poncCount++);
+  return c.text("pong " + pingpong());
 });
 
 serve(

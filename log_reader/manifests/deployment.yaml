@@ -15,7 +15,8 @@ spec:
     spec:
       volumes: # Define volume
         - name: shared-logs
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: log-storage-claim
       containers:
         - name: log-writer
           image: log_writer:230404
@@ -24,7 +25,7 @@ spec:
             - name: shared-logs
               mountPath: /app/data
         - name: log-reader
-          image: log_reader:230404
+          image: log_reader:003204
           imagePullPolicy: IfNotPresent
           volumeMounts: # Mount volume
             - name: shared-logs
