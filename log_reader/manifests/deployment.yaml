@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-outputter
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: log-outputter
+  template:
+    metadata:
+      labels:
+        app: log-outputter
+    spec:
+      volumes: # Define volume
+        - name: shared-logs
+          emptyDir: {}
+      containers:
+        - name: log-writer
+          image: log_writer:230404
+          imagePullPolicy: IfNotPresent
+          volumeMounts: # Mount volume
+            - name: shared-logs
+              mountPath: /app/data
+        - name: log-reader
+          image: log_reader:230404
+          imagePullPolicy: IfNotPresent
+          volumeMounts: # Mount volume
+            - name: shared-logs
+              mountPath: /app/data
