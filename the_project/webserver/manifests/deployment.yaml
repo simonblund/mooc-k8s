@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: webserver
-          image: webserver:235211
+          image: webserver:152532
           imagePullPolicy: IfNotPresent
           env:
             - name: PORT
