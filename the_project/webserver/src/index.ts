@@ -34,7 +34,7 @@ app.get("/image", async (c) => {
   }
 
   if (Date.now() - Number(timestamp_of_current_image) > 600000) {
-    await getNewImage(timestamp_of_current_image);
+    timestamp_of_current_image = await getNewImage(timestamp_of_current_image);
   }
 
   const imageBuffer = await fs.readFile(
@@ -51,7 +51,7 @@ app.get("/image", async (c) => {
     headers: { "Content-Type": "image/png" },
   });
 });
-app.use("*", serveStatic({ root: "./dist/static" }));
+app.use("*", serveStatic({ root: "./src/static" }));
 
 serve(
   {

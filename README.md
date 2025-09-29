@@ -11,3 +11,5 @@
 [1.9](https://github.com/simonblund/mooc-k8s/releases/tag/1.9)
 [1.10](https://github.com/simonblund/mooc-k8s/releases/tag/1.10)
 [1.11](https://github.com/simonblund/mooc-k8s/releases/tag/1.11)
+[1.12](https://github.com/simonblund/mooc-k8s/releases/tag/1.12)
+[1.13](https://github.com/simonblund/mooc-k8s/releases/tag/1.13)
