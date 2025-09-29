@@ -25,7 +25,7 @@ spec:
             - name: shared-logs
               mountPath: /app/data
         - name: log-reader
-          image: log_reader:003204
+          image: log_reader:233905
           imagePullPolicy: IfNotPresent
           volumeMounts: # Mount volume
             - name: shared-logs

@@ -4,12 +4,14 @@ import { Hono } from "hono";
 
 const app = new Hono();
 
-app.get("*", (c) => {
+app.get("*", async (c) => {
   const fileContents = readFileSync("./data/log.txt", "utf-8");
   const lines = fileContents.trim().split("\n");
   const lastLine = lines[lines.length - 1];
 
-  const pingpongCount = readFileSync("./data/pingpong.txt", "utf-8");
+  const pingpongCount = await fetch("http://pingpong-svc:3000/pings").then(
+    (res) => res.text()
+  );
 
   const response = `${lastLine}.\n\nPing / Pongs:\n${pingpongCount}`;
   return c.text(response);

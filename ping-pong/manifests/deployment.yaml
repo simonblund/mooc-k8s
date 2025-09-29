@@ -12,14 +12,7 @@ spec:
       labels:
         app: pingpong
     spec:
-      volumes: # Define volume
-        - name: shared-logs
-          persistentVolumeClaim:
-            claimName: log-storage-claim
       containers:
         - name: pingpong
-          image: pingpong:002536
+          image: pingpong:233905
           imagePullPolicy: IfNotPresent
-          volumeMounts: # Mount volume
-            - name: shared-logs
-              mountPath: /app/data

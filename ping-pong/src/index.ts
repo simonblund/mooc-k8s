@@ -16,9 +16,15 @@ function pingpong() {
   writeFileSync("./data/pingpong.txt", String(newValue), "utf-8");
   return existing;
 }
+let count = 0;
 
 app.get("/pingpong", (c) => {
-  return c.text("pong " + pingpong());
+  const existing = String(count);
+  count++;
+  return c.text("pong " + existing);
+});
+app.get("/pings", (c) => {
+  return c.text(String(count));
 });
 
 serve(
