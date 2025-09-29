@@ -12,10 +12,18 @@ spec:
       labels:
         app: webserver
     spec:
+      volumes: # Define volume
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: log-storage-claim
       containers:
         - name: webserver
-          image: webserver:152532
+          image: webserver:224139
           imagePullPolicy: IfNotPresent
+          volumeMounts: # Mount volume
+            - name: shared-logs
+              mountPath: /app/data
+
           env:
             - name: PORT
               value: "3001"
