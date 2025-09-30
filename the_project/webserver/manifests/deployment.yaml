@@ -18,7 +18,7 @@ spec:
             claimName: log-storage-claim
       containers:
         - name: webserver
-          image: webserver:225946
+          image: webserver:230823
           imagePullPolicy: IfNotPresent
           volumeMounts: # Mount volume
             - name: shared-logs

@@ -6,3 +6,9 @@ build_log_project:
 	k3d image import log_reader:${TSSTRING}
 	k3d image import log_writer:${TSSTRING}
 	k3d image import pingpong:${TSSTRING}
+
+build_the_project:
+	docker build -t webserver:${TSSTRING} the_project/webserver/.
+	docker build -t todo_backend:${TSSTRING} the_project/todo-backend/.
+	k3d image import webserver:${TSSTRING}
+	k3d image import todo_backend:${TSSTRING}

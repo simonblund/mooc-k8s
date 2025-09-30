@@ -1,31 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Kubernetes Course</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
+
+<script>
+
+    document.addEventListener('alpine:init', () => {
+        let ullist = document.querySelector('#todolist')
+        let data = Alpine.reactive({
+            todos: [],
+        })
+        let alpdata = Alpine.data('todoApp', () => ({
+            new_todo: "",
+            async fetchTodos() {
+                const response = await fetch('/todos');
+                if (response.ok) {
+                    data.todos = await response.json();
+                }
+            },
+            async createNewTodo() {
+                console.log("todo:" + this.new_todo)
+                const response = await fetch("/todos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text: this.new_todo })
+                })
+                this.new_todo = ""
+                await this.fetchTodos()
+            },
+            init() {
+                this.fetchTodos();
+            }
+        }));
+        Alpine.effect(() => {
+            ullist.innerHTML = "";
+            data.todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.textContent = todo;
+                ullist.appendChild(li);
+            });
+        })
+    });
+</script>
+
 <body>
+    <span></span>
     <main class="container">
         <img src="/image" alt="Random image" />
         <h1>Welcome to My Web Page</h1>
         <p>An apple a day keeps the doctor away.</p>
 
-        <form action="">
-            <input type="text" maxlength="140">
-            <button>
+        <div x-data="todoApp">
+            <input type="text" maxlength="140" x-model="new_todo">
+            <button x-on:click="createNewTodo">
                 CREATE TODO
             </button>
-        </form>
+        </div>
 
-        <ul>
-            <li>Buy apricots</li>
-            <li>Buy bananas</li>
-            <li>Figure out if bananas are berries or fruits</li>
+        <ul id="todolist">
+            <li x-text="todo"></li>
         </ul>
-        
+
     </main>
-    
+
 </body>
+
 </html>

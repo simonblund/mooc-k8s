@@ -22,6 +22,20 @@ async function getNewImage(previous_timestamp?: number) {
   return timestamp;
 }
 
+// let todos: string[] = [
+//   " Learn Kubernetes",
+//   "Learn Hono",
+//   "Build something awesome",
+// ];
+// app.get("/todos", (c) => {
+//   return c.json(todos);
+// });
+// app.post("/todos", async (c) => {
+//   const { text } = await c.req.json();
+//   todos.push(text);
+//   return c.json({ message: "Todo added", todos });
+// });
+
 app.get("/image", async (c) => {
   const files = await fs.readdir("./data");
   const imageFiles = files.filter((file) => file.endsWith(".png"));
