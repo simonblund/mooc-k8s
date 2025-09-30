@@ -15,7 +15,7 @@ spec:
       volumes: # Define volume
         - name: shared-logs
           persistentVolumeClaim:
-            claimName: log-storage-claim
+            claimName: project-storage-claim
       containers:
         - name: webserver
           image: webserver:230823
