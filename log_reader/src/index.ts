@@ -9,7 +9,7 @@ app.get("*", async (c) => {
   const lines = fileContents.trim().split("\n");
   const lastLine = lines[lines.length - 1];
 
-  const pingpongCount = await fetch("http://pingpong-svc:3000/pings").then(
+  const pingpongCount = await fetch(process.env.PINGPONG_SVC_URL + "/pings").then(
     (res) => res.text()
   );
 

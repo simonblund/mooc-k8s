@@ -28,18 +28,35 @@ spec:
         - name: log-writer
           image: log_writer:230404
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
           volumeMounts: # Mount volume
             - name: shared-logs
               mountPath: /app/data
         - name: log-reader
-          image: log_reader:190230
+          image: log_reader:220947
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
           env:
             - name: MESSAGE
               valueFrom:
                 configMapKeyRef:
                   name: log-outputter-config
                   key: MESSAGE
+            - name: PINGPONG_SVC_URL
+              value: "http://pingpong-svc:3000"
+
           volumeMounts: # Mount volume
             - name: shared-logs
               mountPath: /app/data
