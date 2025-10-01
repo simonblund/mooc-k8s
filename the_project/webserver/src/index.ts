@@ -11,7 +11,9 @@ import { promises as fs } from "fs";
 let last_image_timestamp = Date.now();
 
 async function getNewImage(previous_timestamp?: number) {
-  const new_image = await fetch("https://picsum.photos/400");
+  const new_image = await fetch(
+    process.env.PICTURE_URL || "https://picsum.photos/400"
+  );
   const new_image_buffer = await new_image.arrayBuffer();
   const timestamp = Date.now();
   if (previous_timestamp) {

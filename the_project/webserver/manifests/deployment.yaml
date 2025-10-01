@@ -19,12 +19,23 @@ spec:
             claimName: project-storage-claim
       containers:
         - name: webserver
-          image: webserver:230823
+          image: webserver:224127
           imagePullPolicy: IfNotPresent
           volumeMounts: # Mount volume
             - name: shared-logs
               mountPath: /app/data
 
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+
           env:
             - name: PORT
               value: "3001"
+
+            - name: PICTURE_URL
+              value: "https://picsum.photos/400"

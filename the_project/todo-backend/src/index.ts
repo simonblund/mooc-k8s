@@ -5,6 +5,8 @@ const app = new Hono();
 
 const todos: string[] = [];
 
+const port = process.env.PORT || "3000";
+
 app.get("/todos", (c) => {
   return c.json(todos);
 });
@@ -19,7 +21,7 @@ app.post("/todos", async (c) => {
 serve(
   {
     fetch: app.fetch,
-    port: 3000,
+    port: Number(port),
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);
