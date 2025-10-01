@@ -18,6 +18,12 @@ spec:
         - name: shared-logs
           persistentVolumeClaim:
             claimName: log-storage-claim
+        - name: config-volume
+          configMap:
+            name: log-outputter-config
+            items:
+              - key: textcontent
+                path: information.txt
       containers:
         - name: log-writer
           image: log_writer:230404
@@ -26,8 +32,16 @@ spec:
             - name: shared-logs
               mountPath: /app/data
         - name: log-reader
-          image: log_reader:233905
+          image: log_reader:190230
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-outputter-config
+                  key: MESSAGE
           volumeMounts: # Mount volume
             - name: shared-logs
               mountPath: /app/data
+            - name: config-volume
+              mountPath: /var/configs

@@ -13,7 +13,11 @@ app.get("*", async (c) => {
     (res) => res.text()
   );
 
-  const response = `${lastLine}.\n\nPing / Pongs:\n${pingpongCount}`;
+  const message = process.env.MESSAGE || "No message found in env";
+
+  const filecontents = readFileSync("/var/configs/information.txt", "utf-8");
+
+  const response = `Message ENV var:\n${message}\n\nFile Contents:\n${filecontents}\n\n ${lastLine}.\n\nPing / Pongs:\n${pingpongCount}`;
   return c.text(response);
 });
 
